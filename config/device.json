@@ -1,0 +1,14 @@
+{
+  "development": {
+    "host": "localhost",
+    "port": "22",
+    "username": "latona",
+    "password": "Latona2019"
+  },
+  "production": {
+    "host": "192.168.120.2",
+    "port": "22",
+    "username": "latona",
+    "password": "latonalatona"
+  }
+}

@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: ui-backend-for-maintenance
+  name: ui-backend-for-maintenance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: ui-backend-for-maintenance
+  template:
+    metadata:
+      labels:
+        run: ui-backend-for-maintenance
+    spec:
+      hostname: ui-backend-for-maintenance
+      containers:
+        - name: ui-backend-for-maintenance
+          image: ui-backend-for-maintenance:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: src
+              mountPath: /var/lib/aion/Data/direct-next-service_1/
+          env:
+            - name: ROBOT_IP
+              value: "192.168.100.2"
+      volumes:
+        - name: src
+          hostPath:
+            path: /var/lib/aion/Data/direct-next-service_1/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: ui-backend-for-maintenance
+  name: ui-backend-for-maintenance
+spec:
+  selector:
+    run: ui-backend-for-maintenance
+  type: NodePort
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+      nodePort: 30080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: ui-backend-for-maintenance2
+  name: ui-backend-for-maintenance2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: ui-backend-for-maintenance2
+  template:
+    metadata:
+      labels:
+        run: ui-backend-for-maintenance2
+    spec:
+      hostname: ui-backend-for-maintenance2
+      containers:
+        - name: ui-backend-for-maintenance2
+          image: ui-backend-for-maintenance:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: src
+              mountPath: /var/lib/aion/Data/direct-next-service_1/
+          env:
+            - name: ROBOT_IP
+              value: "192.168.100.11"
+      volumes:
+        - name: src
+          hostPath:
+            path: /var/lib/aion/Data/direct-next-service_1/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: ui-backend-for-maintenance2
+  name: ui-backend-for-maintenance2
+spec:
+  selector:
+    run: ui-backend-for-maintenance2
+  type: NodePort
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+      nodePort: 30081
+---

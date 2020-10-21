@@ -1,0 +1,36 @@
+{
+  "development": {
+    "db_host": "localhost",
+    "db_port": "3306",
+    "db_user": "latona",
+    "db_pass": "latonalatona",
+    "db_name": "Maintenance",
+    "redis": {
+      "host": "localhost",
+      "port": 6379,
+      "db": {
+        "YASKAWA": 1,
+        "JTEKT": 2,
+        "KEYENCE": 3,
+        "OMRON": 4
+      }
+    }
+  },
+  "production": {
+    "db_host": "mysql",
+    "db_port": "3306",
+    "db_user": "latona",
+    "db_pass": "latonalatona",
+    "db_name": "Maintenance",
+    "redis": {
+      "host": "redis-cluster",
+      "port": 6379,
+      "db": {
+        "YASKAWA": 1,
+        "JTEKT": 2,
+        "KEYENCE": 3,
+        "OMRON": 4
+      }
+    }
+  }
+}
